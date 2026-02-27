@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: infradon-postgres
+    environment:
+      POSTGRES_USER: infradon
+      POSTGRES_PASSWORD: infradon
+      POSTGRES_DB: infradon
+    ports:
+      - "5432:5432"
+    volumes:
+      - infradon:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+
+volumes:
+  infradon:
+
+
