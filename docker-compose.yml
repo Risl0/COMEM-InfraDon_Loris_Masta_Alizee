@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - infradon:/var/lib/postgresql/data
+      - :/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d
 
 volumes:
