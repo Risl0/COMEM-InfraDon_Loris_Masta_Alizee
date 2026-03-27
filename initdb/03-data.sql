@@ -57,3 +57,45 @@ SELECT
         ELSE materiau
     END AS type_materiel_normalise
 FROM staging.inventaire
+
+insert into public.type_mobilier (libelle)
+
+SELECT DISTINCT
+    type
+FROM staging.inventaire
+WHERE
+    type IS NOT NULL;
+
+SELECT
+    type,
+    CASE
+    -- Lampadaires
+        WHEN LOWER(type) LIKE '%lampadaire%' THEN 'lampadaire'
+        -- Bornes de recharge EV
+        WHEN LOWER(type) LIKE '%borne recharge%'
+        OR LOWER(type) LIKE '%borne ev%'
+        OR LOWER(type) LIKE '%borne recharge ev%' THEN 'borne recharge'
+        -- Fontaines
+        WHEN LOWER(type) LIKE '%fontaine%' THEN 'fontaine'
+        -- Bancs
+        WHEN LOWER(type) LIKE '%banc%' THEN 'banc'
+        -- Panneaux
+        WHEN LOWER(type) LIKE '%panneau%' THEN 'panneau'
+        -- Poubelles / corbeilles
+        WHEN LOWER(type) LIKE '%poubelle%'
+        OR LOWER(type) LIKE '%corbeille%' THEN 'poubelle'
+        ELSE type
+    END AS type_mobilier_normalise
+FROM staging.inventaire;
+
+SELECT DISTINCT
+    etat
+FROM staging.inventaire
+WHERE
+    etat IS NOT NULL;
+
+SELECT DISTINCT
+    statut
+FROM staging.signalement
+WHERE
+    statut IS NOT NULL;
