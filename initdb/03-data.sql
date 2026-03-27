@@ -99,3 +99,9 @@ SELECT DISTINCT
 FROM staging.signalement
 WHERE
     statut IS NOT NULL;
+
+SELECT DISTINCT
+    urgence
+FROM staging.signalement
+WHERE
+    urgence IS NOT NULL;
