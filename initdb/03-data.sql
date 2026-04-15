@@ -47,15 +47,15 @@ FROM staging.inventaire
 WHERE
     materiau IS NOT NULL;
 
-SELECT
-    materiau,
+INSERT INTO public.type_materiel (libelle)
+SELECT DISTINCT
     CASE
         WHEN LOWER(materiau) LIKE '%métal%'
         OR LOWER(materiau) LIKE '%metal%' THEN 'métal'
         WHEN LOWER(materiau) LIKE '%Pierre%'
         OR LOWER(materiau) LIKE '%pierre%' THEN 'pierre'
         ELSE materiau
-    END AS type_materiel_normalise
+    END
 FROM staging.inventaire
 
 insert into public.type_mobilier (libelle)
@@ -66,8 +66,8 @@ FROM staging.inventaire
 WHERE
     type IS NOT NULL;
 
-SELECT
-    type,
+INSERT INTO public.type_mobilier (libelle)
+SELECT DISTINCT
     CASE
     -- Lampadaires
         WHEN LOWER(type) LIKE '%lampadaire%' THEN 'lampadaire'
@@ -87,19 +87,23 @@ SELECT
         ELSE type
     END AS type_mobilier_normalise
 FROM staging.inventaire;
+ 
 
+insert into public.etat (libelle)
 SELECT DISTINCT
     etat
 FROM staging.inventaire
 WHERE
     etat IS NOT NULL;
 
+insert into public.statut (libelle)
 SELECT DISTINCT
     statut
 FROM staging.signalement
 WHERE
     statut IS NOT NULL;
 
+insert into public.signalement (urgence)
 SELECT DISTINCT
     urgence
 FROM staging.signalement
