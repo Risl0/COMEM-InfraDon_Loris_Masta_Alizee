@@ -47,7 +47,7 @@ FROM staging.inventaire
 WHERE
     materiau IS NOT NULL;
 
-INSERT INTO public.type_materiel (libelle)
+INSERT INTO public.type_materiel (materiau)
 SELECT DISTINCT
     CASE
         WHEN LOWER(materiau) LIKE '%métal%'
@@ -55,7 +55,7 @@ SELECT DISTINCT
         WHEN LOWER(materiau) LIKE '%Pierre%'
         OR LOWER(materiau) LIKE '%pierre%' THEN 'pierre'
         ELSE materiau
-    END
+    END AS type_materiel_normalise
 FROM staging.inventaire
 
 insert into public.type_mobilier (libelle)
