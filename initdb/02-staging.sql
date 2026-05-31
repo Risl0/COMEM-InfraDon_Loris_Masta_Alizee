@@ -1,4 +1,4 @@
--- Créer un schéma dédié pour la staging
+--gt Créer un schéma dédié pour la staging
 CREATE SCHEMA IF NOT EXISTS staging;
 -- Table de staging : miroir exact du CSV
 -- Tout en TEXT, aucune contrainte
